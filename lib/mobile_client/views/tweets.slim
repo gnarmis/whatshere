@@ -1,0 +1,11 @@
+- content_for :body do
+  div data-role="page" id="places" data-add-back-btn="true"
+    div data-role="header"
+      h1 Tweets
+    div data-role="content"
+      ul data-role="listview" data-split-theme="d" data-inset="true" data-filter="true"
+        - @results.each do |i|
+          li data-theme="c"
+            img src="#{i['profile_image_url']}" style="height:80px;"
+            h3 = i['from_user']
+            p = i['text']

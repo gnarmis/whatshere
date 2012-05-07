@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html class="ui-mobile-rendering">
+<head>
+    <title>What's Here?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/jquery.mobile-1.1.0.min.css"/>
+
+    <script type="text/template" id="home">
+
+        <div data-role="header">
+            <h1>WhatsHere?</h1>
+        </div>
+
+        <div data-role="content">
+          <h3>Tell us your twitter handle</h3>
+          <p>(so we know what you like)</p>
+          <form id="twgeo" action="/m/submit" method="POST">
+            <input type="text" name="tw_id" id="tw_id" placeholder="Your Twitter Handle" />
+            <input type="text" name="geo_lat" id="geo_lat" style="display:none;" />
+            <input type="text" name="geo_lon" id="geo_lon" style="display:none;" />
+          </form>
+        </div>
+
+    </script>
+
+    <script type="text/template" id="page1">
+
+        <div data-role="header">
+            <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
+            <h1>Page 1</h1>
+        </div>
+
+        <div data-role="content">
+            <p>This is Page 1. It was created dynamically using an underscore.js template.</p>
+            <p>Navigate to:</p>
+            <ul data-role="listview" data-inset="true">
+                <li><a href="#">Home</a></li>
+                <li><a href="#page2">Page 2</a></li>
+            </ul>
+        </div>
+
+    </script>
+
+    <script type="text/template" id="page2">
+
+        <div data-role="header">
+            <a href="#" data-icon="back" class="back ui-btn-left">Back</a>
+            <h1>Page 2</h1>
+        </div>
+
+        <div data-role="content">
+            <p>This is Page 2. It was created dynamically using an underscore.js template.</p>
+            <p>Navigate to:</p>
+            <ul data-role="listview" data-inset="true">
+                <li><a href="#">Home</a></li>
+                <li><a href="#page1">Page 1</a></li>
+            </ul>
+        </div>
+
+    </script>
+
+
+    <!-- The Scripts -->
+    <script src="lib/jquery-1.7.1.min.js"></script>
+    <script src="js/jqm-config.js"></script>
+    <script src="lib/jquery.mobile-1.1.0.min.js"></script>
+    <script src="lib/underscore-1.2.4.min.js"></script>
+    <script src="lib/backbone-0.5.3.min.js"></script>
+    <script src="js/main.js"></script>
+  </head>
+  <body>
+  </body>
+</html>

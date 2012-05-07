@@ -1,0 +1,62 @@
+- content_for :head do
+  javascript:
+    $(document).ready(function() {
+      //alert('shit gets loaded');
+      // show the position on the page and make a google maps link
+      var lat;
+      var lon;
+      function showPosition(position) {
+       lat = position.coords.latitude;
+       lon = position.coords.longitude;
+       //document.getElementById("geo_lat").innerHTML = lat;
+       //document.getElementById("geo_lon").innerHTML = lon;
+       //var gmaps_url = "http://maps.google.co.uk/maps?f=q&source=s_q&hl=en&geocode=&q=" + lat + "+" + lon;
+       //document.getElementById("gmaps_link").href = gmaps_url;
+      }
+      // report errors to user
+      function errorHandler(error) {
+       switch (error.code) { 
+        case error.PERMISSION_DENIED:
+          alert("Could not get position as permission was denied.");
+          break;
+        case error.POSITION_UNAVAILABLE:
+          alert("Could not get position as this information is not available at this time.");
+          break;
+         case error.TIMEOUT:
+           alert("Attempt to get position timed out.");
+          break;
+         default:
+          alert("Sorry, an error occurred. Code: " + error.code + " Message: " + error.message);
+          break;  
+         }
+      }
+      // check browser can support geolocation, if so get the current position
+      if (navigator.geolocation) {
+       navigator.geolocation.getCurrentPosition(showPosition, errorHandler);
+      }
+      else {
+       alert("Sorry, your browser does not support geolocation services.");
+      }
+      $('#tw_id').keypress(function(e) {
+        if(e.which == 13) {
+            $('#twgeo').submit(function() {
+                $('#geo_lat').val(lat);
+                $('#geo_lon').val(lon);
+                return true;
+            });
+            jQuery('#twgeo').submit();
+        }
+      });
+    });
+- content_for :body do
+  div data-role="page" id="home"
+    div data-role="header"
+      h1 What's Here?
+    div data-role="content"
+      h3 Tell us your twitter handle
+      p (so we know what you like)
+      form id="twgeo" action="/all" method="GET"
+        input type="text" name="tw_id" id="tw_id" placeholder="Your Twitter Handle"
+        input type="text" name="geo_lat" id="geo_lat" style="display:none;"
+        input type="text" name="geo_lon" id="geo_lon" style="display:none;"
+

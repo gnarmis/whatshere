@@ -1,0 +1,10 @@
+- content_for :body do
+  div data-role="page" id="places" data-add-back-btn="true"
+    div data-role="header"
+      h1 Places
+    div data-role="content"
+      ul data-role="listview" data-split-theme="d" data-inset="true" data-filter="true"
+        - @results.each do |i|
+          li data-theme="c"
+            a href="#{ @link_base.to_s + "&topic=#{i[0]}" }"
+              = i[1] + 's'

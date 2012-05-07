@@ -1,0 +1,19 @@
+- content_for :body do
+  div data-role="page" id="topic_list" data-add-back-btn="true"
+    div data-role="header"
+      h1 Whats Here?
+    div data-role="content"
+      ul data-role="listview" id="list" data-filter="true"
+        - @results.each do |i|
+          li data-split-theme="d"
+            a href="http://maps.google.com/maps?daddr=#{url_enc(i['street'].to_s + ', ' + i['city'].to_s + ' ' + i['state'])}"
+              h3 class="ul-li-heading" 
+                = i['title']
+              p
+                b = "#{i['street']}, #{i['city']} #{i['state']}"
+              p class="ul-li-aside ul-li-desc"
+                - (Integer(i['average_ratings']['yelp'].to_f)).times do
+                  = "<h2 style='display:inline;clear:none;margin-bottom:0px;'>*</h2>"
+              p class="ul-li-desc"
+                = "#{if i['hours']; "hours: #{i['hours'][0]}&nbsp;&nbsp;"; end} phone: #{i['phone']}"
+            

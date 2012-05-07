@@ -1,0 +1,10 @@
+- content_for :body do
+  div data-role="page" id="places" data-add-back-btn="true"
+    div data-role="header"
+      h1 Photos
+    div data-role="content"
+      div
+        - @results.each do |i|
+          div data-inline="true" style="display:inline;"
+            a href="#{i['media_url']}"
+              img src="#{i['media_url']}" style="max-height:80px;max-width:100px;margin:5px;padding:0;"
