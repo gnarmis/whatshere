@@ -1,8 +1,8 @@
 - content_for :body do
-  div data-role="page" id="topic_list" data-add-back-btn="true"
-    div data-role="header"
+  div data-role="page" id="topic_list" data-add-back-btn="true" data-theme="b"
+    div data-role="header" data-theme="b"
       h1 Whats Here?
-    div data-role="content"
+    div data-role="content" data-theme="b"
       ul data-role="listview" id="list" data-filter="true"
         - @results.each do |i|
           li data-split-theme="d"

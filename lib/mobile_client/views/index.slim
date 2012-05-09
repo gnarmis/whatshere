@@ -49,10 +49,10 @@
       });
     });
 - content_for :body do
-  div data-role="page" id="home"
-    div data-role="header"
+  div data-role="page" id="home" data-theme="b"
+    div data-role="header" data-theme="b"
       h1 What's Here?
-    div data-role="content"
+    div data-role="content" data-theme="b"
       h3 Tell us your twitter handle
       p (so we know what you like)
       form id="twgeo" action="/all" method="GET"

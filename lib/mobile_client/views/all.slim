@@ -1,19 +1,19 @@
 - content_for :body do
-  div data-role="page" id="all" data-add-back-btn="true"
-    div data-role="header"
+  div data-role="page" id="all" data-add-back-btn="true" data-theme="b"
+    div data-role="header" data-theme="b"
       h1 What's Here?
-    div data-role="content"
-      ul data-role="listview" data-split-theme="d" data-inset="true"
-        li data-theme="c"
+    div data-role="content" data-theme="b"
+      ul data-role="listview" data-split-theme="d" data-inset="true" data-theme="b"
+        li
           a href="/m/people?tw=#{@tw}&lat=#{@lat}&lng=#{@lng}"
             = "People"
-        li data-theme="c"
+        li
           a href="/m/tweets?tw=#{@tw}&lat=#{@lat}&lng=#{@lng}"
             = "Tweets"
-        li data-theme="c"
+        li
           a href="/m/photos?tw=#{@tw}&lat=#{@lat}&lng=#{@lng}"
             = "Photos"
-        li data-theme="c"
+        li
           a href="/m/places?tw=#{@tw}&lat=#{@lat}&lng=#{@lng}"
             = "Places"
     

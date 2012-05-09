@@ -22,6 +22,7 @@ group :development do
   gem 'logger'
   gem 'sinatra-reloader', :require => 'sinatra/reloader'
   gem 'thin'
+  gem 'foreman'
 end
 
 group :production do

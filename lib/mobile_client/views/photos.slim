@@ -1,8 +1,8 @@
 - content_for :body do
-  div data-role="page" id="places" data-add-back-btn="true"
-    div data-role="header"
+  div data-role="page" id="places" data-add-back-btn="true" data-theme="b"
+    div data-role="header" data-theme="b"
       h1 Photos
-    div data-role="content"
+    div data-role="content" data-theme="b"
       div
         - @results.each do |i|
           div data-inline="true" style="display:inline;"

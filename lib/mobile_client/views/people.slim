@@ -1,10 +1,10 @@
 - content_for :body do
-  div data-role="page" id="places" data-add-back-btn="true"
-    div data-role="header"
+  div data-role="page" id="places" data-add-back-btn="true" data-theme="b"
+    div data-role="header" data-theme="b"
       h1 People
-    div data-role="content"
+    div data-role="content" data-theme="b"
       ul data-role="listview" data-split-theme="d" data-inset="true" data-inline="true" data-filter="true"
         - @results.each do |i|
-          li data-theme="c"
+          li data-theme="a"
             img src="#{i['profile_image_url']}" style="height:80px;"
             h3 = "#{i['from_user_name']} (#{i['from_user']})"
