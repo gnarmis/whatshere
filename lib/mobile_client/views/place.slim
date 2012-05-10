@@ -1,0 +1,16 @@
+- content_for :body do
+  div data-role="page" id="places" data-add-back-btn="true" data-theme="b"
+    div data-role="header" data-theme="b"
+      h1 Place Detail
+    div data-role="content" data-theme="b"
+      h1
+        = @result['title']
+      p
+        = @result['urls']
+      p
+        = @result['birthdate']
+      p
+        = @result['tags']
+      p
+        a href="http://api.hunch.com/api/v1/get-similar-results/?result_id=#{@result['result_id']}&topic_ids=#{@topic}"
+          = "Similar Results"

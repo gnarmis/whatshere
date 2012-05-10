@@ -38,6 +38,7 @@ module Project
                         "user_id=tw_#{params[:tw]}&lat=#{params[:lat]}&lng=#{params[:lng]}"+
                         "&radius=1.0&topic_ids=#{params[:topic]}&limit=10"
         @results = JSON(r.body)
+        @topic_id = params[:topic]
         @results = @results['recommendations']
       end
       slim :topic_list
@@ -55,6 +56,19 @@ module Project
       end
     end
 
+    get '/place?' do
+      if params[:result_id] and params[:topic_ids]
+        q = base_url+"/rec/?result_ids=#{params[:result_id]}&topic_ids=#{params[:topic_ids]}"
+        #puts q
+        res = Faraday.get q
+        @r = JSON(res.body)
+        @result = @r['recommendations']
+        @result = @result[0]
+        @topic = params[:topic_ids]
+        slim :place
+      end
+    end
+
     get '/places?' do
       if params[:tw] and params[:lat] and params[:lng]
         q = base_url+"/rec/topics?tw=#{params[:tw]}&lat=#{params[:lat]}&lng=#{params[:lng]}"
@@ -65,7 +79,7 @@ module Project
         @r.each do |i|
           @results.push i[0]
         end
-        @link_base = "/m/topic?tw=#{params[:tw]}&lat=#{params[:lat]}&lng=#{params[:lng]}"
+        @link_base = "/topic?tw=#{params[:tw]}&lat=#{params[:lat]}&lng=#{params[:lng]}"
         slim :places
       end
     end
@@ -110,7 +124,6 @@ module Project
         slim :photos
       end
     end
-
 
     helpers do
       def base_url

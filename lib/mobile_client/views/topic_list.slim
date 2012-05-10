@@ -6,7 +6,7 @@
       ul data-role="listview" id="list" data-filter="true"
         - @results.each do |i|
           li data-split-theme="d"
-            a href="http://maps.google.com/maps?daddr=#{url_enc(i['street'].to_s + ', ' + i['city'].to_s + ' ' + i['state'])}"
+            a href="/place?result_id=#{i['result_id']}&topic_ids=#{@topic_id}"
               h3 class="ul-li-heading" 
                 = i['title']
               p
@@ -16,4 +16,5 @@
                   = "<h2 style='display:inline;clear:none;margin-bottom:0px;'>*</h2>"
               p class="ul-li-desc"
                 = "#{if i['hours']; "hours: #{i['hours'][0]}&nbsp;&nbsp;"; end} phone: #{i['phone']}"
+
             
