@@ -3,10 +3,10 @@ require 'rspec/core/rake_task'
 task :default => :help
 
 desc "Run auto-reloading development server using Shotgun"
-task :r do
-  sh "shotgun rackup"
+task :start do
+  sh "bundle exec foreman start -f devProcfile"
 end
-
+task :s => :start
 
 desc "Run specs"
 task :spec do
@@ -32,13 +32,13 @@ end
 desc "Run Pry console with app environment"
 task :pry do
   puts "Loading Pry development console..."
-  system("pry -r ./config/boot.rb")
+  system("bundle exec pry -r ./config/boot.rb")
 end
 
 desc "Show help menu"
 task :help do
   puts "Available rake tasks: "
-  puts "rake r - Run auto-reloading development server using Shotgun"
+  puts "rake start, rake s - Run app with development environment"
   puts "rake console - Run a IRB console with the enviroment loaded"
   puts "rake pry - Run a Pry console with the enviroment loaded"
   puts "rake spec - Run specs"
