@@ -6,19 +6,20 @@ gem 'sinatra', :require => 'sinatra/base'
 gem 'sinatra-contrib', :require => 'sinatra/contrib'
 gem 'sinatra-synchrony', :require => 'sinatra/synchrony'
 gem 'faraday'
-gem 'json'
 gem 'rest-client'
 gem 'google_places'
 gem 'geokit'
 gem 'foursquare2'
 gem 'flickraw'
-require 'yaml'
 gem 'slim'
 gem 'thin'
 # gem 'grape'
 
+require 'yaml'
+require 'json'
+
 group :development do
-  gem 'pry'
+  gem 'pry', :require => "pry"
   gem 'logger'
   gem 'sinatra-reloader', :require => 'sinatra/reloader'
   gem 'thin'
