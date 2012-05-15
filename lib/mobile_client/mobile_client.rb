@@ -97,6 +97,10 @@ module Project
       end
     end
 
+    get '/person' do
+      "It's a person!"
+    end
+
     get '/people?' do
       if params[:lat] and params[:lng]
         q = base_url+"/tweetsnearme/?loc=#{params[:lat]},#{params[:lng]},0.2mi"
