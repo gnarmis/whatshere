@@ -7,14 +7,14 @@
         - @results.each do |i|
           li data-split-theme="d"
             a href="/place?result_id=#{i['result_id']}&topic_ids=#{@topic_id}"
-              h3 class="ul-li-heading" 
+              h3 class="ul-li-heading" style="white-space:normal"
                 = i['title']
-              p
+              p style="white-space:normal"
                 b = "#{i['street']}, #{i['city']} #{i['state']}"
-              p class="ul-li-aside ul-li-desc"
+              p class="ul-li-aside ul-li-desc" style="white-space:normal"
                 - (Integer(i['average_ratings']['yelp'].to_f)).times do
                   = "<h2 style='display:inline;clear:none;margin-bottom:0px;'>*</h2>"
-              p class="ul-li-desc"
+              p class="ul-li-desc" style="white-space:normal"
                 = "#{if i['hours']; "hours: #{i['hours'][0]}&nbsp;&nbsp;"; end} phone: #{i['phone']}"
 
             
