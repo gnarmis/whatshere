@@ -6,12 +6,18 @@
       h1 style="background:url('#{@result['image_urls'][0].to_s}'); background-size: 100%; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;border-radius:5px;padding:10% 10% 3% 10%; width: 150%;margin-left:-1em;margin-top:-5%;box-shadow: 0px 1px 20px black inset;border-bottom:1px solid #444;"
         span style="white-space:normal;width:75%;display:block;"
           = @result['title']
-        span style="font-size:12px;margin-left:1%; font-style:italic;margin-top:none;padding:none;"
-          = "since #{DateTime.parse(@result['birthdate'].to_s).strftime("%d %b, %Y")}"
+        - if @result['price']
+          span style="font-size:14px;margin-left:1%; font-style:italic;margin-top:none;padding:none;"
+            = "price: #{@result['price']} &nbsp; &nbsp; yelp:"
+          - if @result['average_ratings']['yelp']
+            span style="white-space:normal; font-size:14px; margin-left:1%; margin-top:10%; display:inline; line-height:5px;"
+              - (Integer(@result['average_ratings']['yelp'].to_f)).times do
+                = "<h2 style='display:inline;clear:none;margin-bottom:0px;'>★</h2>"
+
 
       - s = "#{@result['street']}, #{@result['city']} #{@result['state']}"
       p
-        a data-role="button" href="http://maps.google.com/maps?d&saddr=#{url_enc(s)}"
+        a data-role="button" href="http://maps.google.com/maps?daddr=#{url_enc(s)}"
          = s
       - @result['urls'].each do |i|
         a href="#{i.to_s}" data-role="button" data-inline="true" data-mini="true" data-theme="a"
@@ -21,6 +27,6 @@
         a data-role="button" href="/similar-results?result_id=#{@result['result_id']}&topic_ids=#{@topic}&lat=#{@result['lat']}&lng=#{@result['lng']}"
           = "Similar Results"
         a data-role="button" href="/tweets?lat=#{@result['lat']}&lng=#{@result['lng']}"
-          = "Tweets About Here"
+          = "Tweets Near Here"
         a data-role="button" href="/people?lat=#{@result['lat']}&lng=#{@result['lng']}"
           = "People Near Here"
