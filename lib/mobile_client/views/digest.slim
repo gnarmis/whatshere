@@ -15,6 +15,10 @@
               li data-filtertext="#{topic_name} #{i.split(',')[0]} #{i.split(',')[1]}" data-theme="a"
                 a href="/place?result_id=#{i.split(',')[2]}&topic_ids=list_#{k.tr(' ','-')}"
                   = i.split(',')[0]
+            li
+              a href='#{ @link_base.to_s + "&topic=list_#{k.tr(' ','-')}" }' data-role="btn" data-inset="true" 
+                span style="width:50px;font-style:italic"
+                  = "more..."
     div data-role="footer" data-theme="b" class="ui-grid-a" data-position="fixed"
       div class="ui-block-a"
         a data-role="button" href="/tweets?tw=#{@tw}&lat=#{@lat}&lng=#{@lng}" data-inline="false" data-mini="false" style="margin:5%;float:right;"
