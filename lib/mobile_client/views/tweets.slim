@@ -6,8 +6,9 @@
       ul data-role="listview" data-split-theme="d" data-inset="false" data-filter="true"
         - @results.each do |i|
           li
-            img src="#{i['profile_image_url']}" style="height:80px;"
-            h3 style="white-space:normal"
-              = "#{i['from_user_name']} (#{i['from_user']})"
-            p style="white-space:normal"
-              = i['text']
+            a href="http://twitter.com/#{i['from_user']}"
+              img src="#{i['profile_image_url']}" style="height:80px;"
+              h3 style="white-space:normal"
+                = "#{i['from_user_name']} (#{i['from_user']})"
+              p style="white-space:normal"
+                = i['text']
