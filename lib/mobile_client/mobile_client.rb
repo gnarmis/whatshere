@@ -2,6 +2,7 @@ module Project
   class MobileClient < Sinatra::Base
     register Sinatra::Synchrony
     register Sinatra::Contrib
+    Linguistics.use :en
     Faraday.default_adapter = :em_synchrony
     # set configuration for this app
     configure :production, :development do
@@ -55,6 +56,34 @@ module Project
         slim :all
       end
     end
+
+    get '/digest?' do
+      if params[:tw_id] and params[:geo_lat] and params[:geo_lon]
+        lat = format_gps(params[:geo_lat])
+        lon = format_gps(params[:geo_lon])
+        @tw = params[:tw_id]
+        @lat = lat
+        @lng = lon
+        q = base_url+"/rec/?tw=#{@tw}&lat=#{@lat}&lng=#{@lng}"
+        res = Faraday.get q
+        @r = JSON(res.body)
+        @results = @r['recommendations']
+        @results.each do |i|
+          @topics ||= {}
+          s = i['topic_ids'][-1].split('_')[1].tr('-',' ')
+          @topics[s] ||= []
+          @topics[s] = @topics[s].push("#{i['title']},#{i['tags'].join(' ')},#{i['result_id']}") if @topics[s] and !(@topics[s].count > 5)
+        end
+        @link_base = "/topic?tw=#{@tw}&lat=#{@lat}&lng=#{@lng}"
+        slim :digest
+      end
+    end
+
+    # get '/top_places?' do
+    #   if params[:tw] and params[:lat] and params[:lng]
+        
+    #   end
+    # end
 
     get '/place?' do
       if params[:result_id] and params[:topic_ids]

@@ -13,6 +13,7 @@ gem 'foursquare2'
 gem 'flickraw'
 gem 'slim'
 gem 'thin'
+gem 'linguistics', :require => 'linguistics'
 # gem 'grape'
 
 require 'yaml'
