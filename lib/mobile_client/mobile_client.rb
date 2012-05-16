@@ -1,7 +1,10 @@
+require "date"
+
 module Project
   class MobileClient < Sinatra::Base
     register Sinatra::Synchrony
     register Sinatra::Contrib
+    Linguistics.use :en
     Faraday.default_adapter = :em_synchrony
     # set configuration for this app
     configure :production, :development do
@@ -56,6 +59,34 @@ module Project
       end
     end
 
+    get '/digest?' do
+      if params[:tw_id] and params[:geo_lat] and params[:geo_lon]
+        lat = format_gps(params[:geo_lat])
+        lon = format_gps(params[:geo_lon])
+        @tw = params[:tw_id]
+        @lat = lat
+        @lng = lon
+        q = base_url+"/rec/?tw=#{@tw}&lat=#{@lat}&lng=#{@lng}"
+        res = Faraday.get q
+        @r = JSON(res.body)
+        @results = @r['recommendations']
+        @results.each do |i|
+          @topics ||= {}
+          s = i['topic_ids'][-1].split('_')[1].tr('-',' ')
+          @topics[s] ||= []
+          @topics[s] = @topics[s].push("#{i['title']},#{i['tags'].join(' ')},#{i['result_id']}") if @topics[s] and !(@topics[s].count > 5)
+        end
+        @link_base = "/topic?tw=#{@tw}&lat=#{@lat}&lng=#{@lng}"
+        slim :digest
+      end
+    end
+
+    # get '/top_places?' do
+    #   if params[:tw] and params[:lat] and params[:lng]
+        
+    #   end
+    # end
+
     get '/place?' do
       if params[:result_id] and params[:topic_ids]
         q = base_url+"/rec/?result_ids=#{params[:result_id]}&topic_ids=#{params[:topic_ids]}"
@@ -66,6 +97,16 @@ module Project
         @result = @result[0]
         @topic = params[:topic_ids]
         slim :place
+      end
+    end
+
+    get '/similar-results?' do
+      if params[:result_id] and params[:topic_ids] and params[:lat] and params[:lng]
+        q = "http://api.hunch.com/api/v1/get-similar-results/?result_id=#{params[:result_id]}&topic_ids=#{params[:topic_ids]}&lat=#{params[:lat]}&lng=#{params[:lng]}"
+        res = Faraday.get q
+        @r = JSON(res.body)
+        @results = @r['results']
+        slim :similar_places
       end
     end
 
@@ -86,7 +127,8 @@ module Project
 
     get '/tweets?' do
       if params[:lat] and params[:lng]
-        q = base_url+"/tweetsnearme/?loc=#{params[:lat]},#{params[:lng]},0.2mi"
+        q = base_url+"/tweetsnearme/?loc=#{params[:lat]},#{params[:lng]},0.1mi"
+        q = base_url+"/tweetsnearme/?q=#{params[:q]}&loc=#{params[:lat]},#{params[:lng]},0.2mi" if params[:q]
         res = Faraday.get q
         @results = []
         @r = JSON(res.body)
@@ -97,8 +139,13 @@ module Project
       end
     end
 
-    get '/person' do
-      "It's a person!"
+    get '/person?' do
+      if params[:tw]
+        q = "http://api.twitter.com/1/users/search.json?q=#{params[:tw]}"
+        res = Faraday.get q
+        @r = JSON(res.body)
+        @r
+      end
     end
 
     get '/people?' do
@@ -108,8 +155,9 @@ module Project
         @results = []
         @r = JSON(res.body)
         @r['results'].each do |i|
-          @results.push i
+          @results.push [i['from_user'],i['from_user_name'],i['profile_image_url']]
         end
+        @results.uniq!
         slim :people
       end
     end
