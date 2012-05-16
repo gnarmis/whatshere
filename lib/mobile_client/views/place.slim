@@ -15,10 +15,16 @@
                 = "<h2 style='display:inline;clear:none;margin-bottom:0px;'>★</h2>"
 
 
-      - s = "#{@result['street']}, #{@result['city']} #{@result['state']}"
-      p
-        a data-role="button" href="http://maps.google.com/maps?daddr=#{url_enc(s)}"
-         = s
+      ul data-role="listview" data-inset="true"
+        - if @result['street'] and @result['city'] and @result['state']
+          - s = "#{@result['street']}, #{@result['city']} #{@result['state']}"
+          li data-split-theme="d" data-mini="true"
+            a href="http://maps.google.com/maps?daddr=#{url_enc(s)}"
+             = s
+        - if @result['phone']
+          li data-split-theme="d" data-mini="true"
+            a href="tel:#{@result['phone']}"
+             = @result['phone']
       - @result['urls'].each do |i|
         a href="#{i.to_s}" data-role="button" data-inline="true" data-mini="true" data-theme="a"
           = i.split('/')[2].tr('www.','').gsub!('com','')
