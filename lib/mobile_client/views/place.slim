@@ -1,16 +1,26 @@
 - content_for :body do
   div data-role="page" id="places" data-add-back-btn="true" data-theme="b"
-    div data-role="header" data-theme="b" data-position="fixed"
-      h1 Place Detail
+    div data-role="header" data-theme="b"
+      h1 Details
     div data-role="content" data-theme="b"
-      h1
-        = @result['title']
+      h1 style="background:url('#{@result['image_urls'][0].to_s}'); background-size: 100%; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;border-radius:5px;padding:10% 10% 3% 10%; width: 150%;margin-left:-1em;margin-top:-5%;box-shadow: 0px 1px 20px black inset;border-bottom:1px solid #444;"
+        span style="white-space:normal;width:75%;display:block;"
+          = @result['title']
+        span style="font-size:12px;margin-left:1%; font-style:italic;margin-top:none;padding:none;"
+          = "since #{DateTime.parse(@result['birthdate'].to_s).strftime("%d %b, %Y")}"
+
+      - s = "#{@result['street']}, #{@result['city']} #{@result['state']}"
       p
-        = @result['urls']
+        a data-role="button" href="http://maps.google.com/maps?d&saddr=#{url_enc(s)}"
+         = s
+      - @result['urls'].each do |i|
+        a href="#{i.to_s}" data-role="button" data-inline="true" data-mini="true" data-theme="a"
+          = i.split('/')[2].tr('www.','').gsub!('com','')
+      
       p
-        = @result['birthdate']
-      p
-        = @result['tags']
-      p
-        a href="http://api.hunch.com/api/v1/get-similar-results/?result_id=#{@result['result_id']}&topic_ids=#{@topic}"
+        a data-role="button" href="/similar-results?result_id=#{@result['result_id']}&topic_ids=#{@topic}&lat=#{@result['lat']}&lng=#{@result['lng']}"
           = "Similar Results"
+        a data-role="button" href="/tweets?lat=#{@result['lat']}&lng=#{@result['lng']}"
+          = "Tweets About Here"
+        a data-role="button" href="/people?lat=#{@result['lat']}&lng=#{@result['lng']}"
+          = "People Near Here"
