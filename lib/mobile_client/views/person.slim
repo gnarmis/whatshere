@@ -1,0 +1,22 @@
+- content_for :body do
+  div data-role="page" id="person" data-add-back-btn="true" data-theme="b"
+    div data-role="header" data-theme="b" data-position="fixed"
+      - if @profile
+        h1 = @profile['name']
+    div data-role="content" data-theme="b"
+      div class="ui-grid-b"
+        div class="ui-block-a" style="width:20%"
+          img src="#{@profile['profile_image_url']}" style="width:75%;"
+        div class="ui-block-b" style="width:80%"
+          h3 style="white-space:normal; margin-top:0; margin-bottom:0; padding:0;"
+            = "#{@profile['name']} (<a href='http://twitter.com/#{@profile['screen_name']}'>@#{@profile['screen_name']}</a>)"
+          p style="font-size:14px; white-space:normal;"
+            = @profile['description']
+      p
+        = "location: #{@profile['location']}"
+      p
+        = "followers: #{@profile['followers_count']}, following: #{@profile['friends_count']}, tweets: #{@profile['statuses_count']}"
+      ul data-role="listview" data-inset="true" data-split-theme="d"
+        - @r.each do |i|
+          li
+            = i['text']

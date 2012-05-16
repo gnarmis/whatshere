@@ -142,10 +142,11 @@ module Project
 
     get '/person?' do
       if params[:tw]
-        q = "http://api.twitter.com/1/users/search.json?q=#{params[:tw]}"
+        q = "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=#{params[:tw]}&include_entities=true&contributor_details=true"
         res = Faraday.get q
         @r = JSON(res.body)
-        @r
+        @profile = @r[0]['user'] if @r[0]['user']
+        slim :person
       end
     end
 
