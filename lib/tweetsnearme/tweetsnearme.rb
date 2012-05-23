@@ -20,7 +20,6 @@ module Project
       elsif params[:q]
         query = "https://search.twitter.com/search.json?q=" + params[:q] +  "&rpp=100&include_entities=true"
       end
-      puts query
       res = Faraday.get query
       content_type :json
       res.body
