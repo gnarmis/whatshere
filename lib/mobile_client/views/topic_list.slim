@@ -1,7 +1,7 @@
 - content_for :body do
   div data-role="page" id="topic_list" data-add-back-btn="true" data-theme="b"
     div data-role="header" data-theme="b" data-position="fixed"
-      h1 Whats Here?
+      h1 = "#{@topic_id.split('_')[-1].tr('-',' ').split(' ').map {|w| w.capitalize }.join(' ').en.plural}"
     div data-role="content" data-theme="b"
       ul data-role="listview" id="list" data-filter="true"
         - @results.each do |i|

@@ -3,8 +3,10 @@
     div data-role="header" data-theme="b" data-position="fixed"
       h3
         = "What's Here?"
-    div data-role="content" data-theme="b" style="margin-top:5%;margin-bottom:5%;"
-      ul data-role="listview" data-split-theme="d" data-inset="true" data-theme="b" data-filter="true" data-divider-theme="a"
+    div data-role="content" data-theme="b" style="margin-top:0%;margin-bottom:5%;"
+      h3
+        = "#{@num_topics} types of places nearby..."
+      ul data-role="listview" data-split-theme="d" data-inset="true" data-theme="b" data-filter="false" data-divider-theme="a"
         - @topics.each_pair do |k, v|
           - if k
             li data-role="list-divider" role="heading" data-theme="d"

@@ -70,15 +70,37 @@ module Project
         res = Faraday.get q
         @r = JSON(res.body)
         @results = @r['recommendations']
+        strings = []
         @results.each do |i|
-          @topics ||= {}
-          # binding.pry
-          s = i['topic_ids'][-1].split('_')[1].tr('-',' ') if i['topic_ids'] and i['topic_ids'][-1] =~ /_/
-          @topics[s] ||= []
-          if @topics[s] and !(@topics[s].count > 2) and i['tags']
-            @topics[s] = @topics[s].push("#{i['title']},#{i['tags'].join(' ')},#{i['result_id']}") 
+          @topics ||= {} # holds actual topics; keys are topic names, values are arrays of specific entries and their info
+          if i['topic_ids'] and i['topic_ids'][-1] =~ /_/
+            s = i['topic_ids'][-1].split('_')[1].tr('-',' ') 
+            s = "coffee shop" if s == "starbucks"
+            r = /((.)+(\ )+s)+(\ )/
+            s = s.match(r).to_s.rstrip.tr(' ','\'') + " " + s.gsub(s.match(r).to_s, '')
+            # s = "women's clothing store" if s == "women s clothing store"
+            strings.push s
+            @topics[s] ||= []
+            if @topics[s] and !(@topics[s].count > 2) and i['tags']
+              @topics[s] = @topics[s].push("#{i['title']},#{i['tags'].join(' ')},#{i['result_id']}") 
+            end
           end
         end
+        # remove all topics that are merely specific versions of others (like "thai restaurants" vs "restaurants")
+        strings = strings.uniq
+        @reduced_topics = {}
+        @num_topics = 0
+        @topics.each do |k,v|
+          flag = true
+          strings.each do |str|
+            flag = false if k != str and k.include? str
+          end
+          if flag
+            @reduced_topics[k] = v
+            @num_topics += 1
+          end
+        end
+        @topics = @reduced_topics
         @link_base = "/topic?tw=#{@tw}&lat=#{@lat}&lng=#{@lng}"
         slim :digest
       end
