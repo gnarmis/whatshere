@@ -13,7 +13,14 @@ module Project
 
     # get '/?loc=<lat>,<lon>,<range>'
     get '/?' do
-      query = "https://search.twitter.com/search.json?q=%20&geocode=" + params[:loc] + "&rpp=100"
+      if params[:q] and params[:loc]
+        query = "https://search.twitter.com/search.json?q=" + params[:q] + "&geocode=" + params[:loc] + "&rpp=100&include_entities=true"
+      elsif params[:loc]
+        query = "https://search.twitter.com/search.json?q=%20&geocode=" + params[:loc] + "&rpp=100&include_entities=true"
+      elsif params[:q]
+        query = "https://search.twitter.com/search.json?q=" + params[:q] +  "&rpp=100&include_entities=true"
+      end
+      puts query
       res = Faraday.get query
       content_type :json
       res.body

@@ -16,6 +16,17 @@
         = "location: #{@profile['location']}"
       p
         = "followers: #{@profile['followers_count']}, following: #{@profile['friends_count']}, tweets: #{@profile['statuses_count']}"
+      p
+        a data-role="button" data-mini="true" href="http://www.facebook.com/search.php?o=2048&init=dir&q=#{url_enc(@profile['name'])}"
+          = "Search on Facebook"
+        - n = @profile['name'].split(' ')
+        - f = n[0]
+        - l = ""
+        - l = n[1] if n.length > 1
+        a data-role="button" data-mini="true" href="http://www.linkedin.com/pub/dir/?first=#{f}&last=#{l}&search=Search"
+          = "Search on LinkedIn"
+        a data-role="button" data-mini="true" href="/tweets?q=@#{@profile['screen_name']}"
+          = "Tweets About #{@profile['screen_name']}"
       ul data-role="listview" data-inset="true" data-split-theme="d"
         - @r.each do |i|
           li

@@ -161,6 +161,15 @@ module Project
           @results.push i
         end
         slim :tweets
+      elsif params[:q] and !params[:lat] and !params[:lng]
+        q = base_url+"/tweetsnearme/?q=" + params[:q]
+        res = Faraday.get q
+        @results = []
+        @r = JSON(res.body)
+        @r['results'].each do |i|
+          @results.push i
+        end
+        slim :tweets
       end
     end
 
@@ -180,6 +189,7 @@ module Project
         res = Faraday.get q
         @results = []
         @r = JSON(res.body)
+        # return @r
         @r['results'].each do |i|
           @results.push [i['from_user'],i['from_user_name'],i['profile_image_url']]
         end
