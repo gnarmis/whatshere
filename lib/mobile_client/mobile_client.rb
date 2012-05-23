@@ -75,7 +75,9 @@ module Project
           # binding.pry
           s = i['topic_ids'][-1].split('_')[1].tr('-',' ') if i['topic_ids'] and i['topic_ids'][-1] =~ /_/
           @topics[s] ||= []
-          @topics[s] = @topics[s].push("#{i['title']},#{i['tags'].join(' ')},#{i['result_id']}") if @topics[s] and !(@topics[s].count > 5) and i['tags']
+          if @topics[s] and !(@topics[s].count > 2) and i['tags']
+            @topics[s] = @topics[s].push("#{i['title']},#{i['tags'].join(' ')},#{i['result_id']}") 
+          end
         end
         @link_base = "/topic?tw=#{@tw}&lat=#{@lat}&lng=#{@lng}"
         slim :digest
