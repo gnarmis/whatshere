@@ -1,0 +1,24 @@
+- content_for :body do
+  div data-role="page" id="person" data-add-back-btn="true" data-theme="b"
+    div data-role="header" data-theme="b" data-position="fixed"
+      h1 Tweet Details
+    div data-role="content" data-theme="b"
+      h2 style="white-space:normal"
+        a href="/person?tw=#{@r['user']['screen_name']}"
+          = "#{@r['user']['name']} (#{@r['user']['screen_name']})"
+      p
+        = @r['text']
+      - if @r['entities']
+        - if @r['entities']['hashtags'] != []
+
+          - @r['entities']['hashtags'].each do |i|
+            a data-role="button" data-mini="true" data-inline="true" href="/tweet?q=#{i['text']}"
+              = "##{i['text']}"
+        - if @r['entities']['urls'] != []
+          - @r['entities']['urls'].each do |i|
+            a data-role="button" data-mini="true" data-inline="true" href="#{i['url']}"
+              = i['url']
+        - if @r['entities']['user_mentions'] != []
+          - @r['entities']['user_mentions'].each do |i|
+            a data-role="button" data-mini="true" data-inline="true" href="/person?tw=#{i['screen_name']}"
+              = "@#{i['screen_name']}"

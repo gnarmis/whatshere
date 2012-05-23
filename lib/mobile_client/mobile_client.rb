@@ -173,6 +173,15 @@ module Project
       end
     end
 
+    get '/tw?' do
+      if params[:id]
+        q = "http://api.twitter.com/1/statuses/show.json?id=#{params[:id]}&include_entities=true"
+        res = Faraday.get q
+        @r = JSON(res.body)
+        slim :tweet
+      end
+    end
+
     get '/person?' do
       if params[:tw]
         q = "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=#{params[:tw]}&include_entities=true&contributor_details=true"
