@@ -10,8 +10,8 @@
         - @topics.each_pair do |k, v|
           - if k
             li data-role="list-divider" role="heading" data-theme="d"
-              a href='#{ @link_base.to_s + "&topic=list_#{k.tr(' ','-')}" }' data-role="btn" data-inset="true" 
-                - topic_name = k.split(' ').map {|w| w.capitalize }.join(' ').en.plural
+              a href='#{ @link_base.to_s + "&topic=list_#{k.lstrip.tr(' ','-')}" }' data-role="btn" data-inset="true" 
+                - topic_name = k.lstrip.split(' ').map {|w| w.capitalize }.join(' ').en.plural
                 = topic_name
             - v.each do |i|
               li data-filtertext="#{topic_name} #{i.split(',')[0]} #{i.split(',')[1]}" data-theme="a"
