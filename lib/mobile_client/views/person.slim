@@ -33,5 +33,6 @@
           = "Tweets About #{@profile['screen_name']}"
       ul data-role="listview" data-inset="true" data-split-theme="d"
         - @r.each do |i|
-          li
-            = i['text']
+          li 
+            a href="/tw?id=#{i['id']}" style="white-space:normal"
+              = i['text']
