@@ -43,6 +43,13 @@ module Project
         @results = JSON(r.body)
         @topic_id = params[:topic]
         @results = @results['recommendations']
+        if @results == nil
+          r = Faraday.get "http://api.hunch.com/api/v1/get-recommendations/?" + 
+                          "lat=#{params[:lat]}&lng=#{params[:lng]}"+
+                          "&radius=1.0&topic_ids=#{params[:topic]}&limit=10"
+          @results = JSON(r.body)
+          @results = @results['recommendations']
+        end
       end
       slim :topic_list
     end
@@ -70,6 +77,12 @@ module Project
         res = Faraday.get q
         @r = JSON(res.body)
         @results = @r['recommendations']
+        if @results == nil
+          q = base_url+"/rec/?lat=#{@lat}&lng=#{@lng}"
+          res = Faraday.get q
+          @r = JSON(res.body)
+          @results = @r['recommendations']
+        end
         strings = []
         @results.each do |i|
           @topics ||= {} # holds actual topics; keys are topic names, values are arrays of specific entries and their info

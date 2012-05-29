@@ -17,8 +17,10 @@ module Project
       q = "http://api.hunch.com/api/v1/get-recommendations/?"
       if params[:tw] and params[:lat] and params[:lng]
         q +=  "user_id=tw_#{params[:tw]}&lat=#{params[:lat]}&lng=#{params[:lng]}&radius=3.0&limit=20"
+      elsif params[:lat] and params[:lng] and !params[:tw] and !params[:result_ids]
+        q +=  "lat=#{params[:lat]}&lng=#{params[:lng]}&radius=3.0&limit=20"
       elsif params[:result_ids]
-        q += "&result_ids=#{params[:result_ids]}"
+        q += "result_ids=#{params[:result_ids]}"
       end
       r = Faraday.get q
       res += r.body

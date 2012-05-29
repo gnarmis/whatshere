@@ -24,6 +24,20 @@ module Project
       content_type :json
       res.body
     end
+
+    get '/top_hashtags?' do
+      if params[:loc]
+        query = "https://search.twitter.com/search.json?q=%20&geocode=" + params[:loc] + "&rpp=100&include_entities=true"
+        res = Faraday.get query
+        @results = JSON(res.body)
+        @results = @results['results']
+        ary = []
+        @results.each do |i|
+          puts i['entities']
+        end
+        ary
+      end
+    end
     
     # I did this to be able to wrap my app in Rack::Auth::Digest for example
     ## Example:
