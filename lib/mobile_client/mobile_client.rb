@@ -173,6 +173,8 @@ module Project
         @r['results'].each do |i|
           @results.push i
         end
+        @lat = params[:lat]
+        @lng = params[:lng]
         slim :tweets
       elsif params[:q] and !params[:lat] and !params[:lng]
         q = base_url+"/tweetsnearme/?q=" + params[:q]
@@ -189,6 +191,11 @@ module Project
     get '/tw?' do
       if params[:id]
         q = "http://api.twitter.com/1/statuses/show.json?id=#{params[:id]}&include_entities=true"
+        if params[:lat] and params[:lng]
+          q = "http://api.twitter.com/1/statuses/show.json?id=#{params[:id]}&geocode=#{params[:lat]},#{params[:lng]},0.2mi&include_entities=true" 
+          @lat = params[:lat]
+          @lng = params[:lng]
+        end
         res = Faraday.get q
         @r = JSON(res.body)
         slim :tweet

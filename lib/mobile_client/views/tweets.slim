@@ -6,7 +6,7 @@
       ul data-role="listview" data-split-theme="d" data-inset="false" data-filter="true"
         - @results.each do |i|
           li
-            a href="/tw?id=#{i['id']}"
+            a href="/tw?id=#{i['id']}&lat=#{@lat}&lng=#{@lng}"
               img src="#{i['profile_image_url']}" style="height:80px;"
               p style="white-space:normal;font-weight:800;"
                 = "#{i['from_user_name']} (#{i['from_user']})"

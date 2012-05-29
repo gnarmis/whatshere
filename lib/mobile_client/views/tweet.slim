@@ -3,16 +3,19 @@
     div data-role="header" data-theme="b" data-position="fixed"
       h1 Tweet Details
     div data-role="content" data-theme="b"
-      h2 style="white-space:normal"
-        a href="/person?tw=#{@r['user']['screen_name']}"
-          = "#{@r['user']['name']} (#{@r['user']['screen_name']})"
+      h3 style="white-space:normal"
+        
+        a data-role="button" data-mini="true" href="/person?tw=#{@r['user']['screen_name']}"
+          img src="#{@r['user']['profile_image_url']}" style="height=80px;margin:3%;float:left;"
+          span style="margin:5%;display:block;float:left;font-size:18px; max-width:55%; white-space:normal;"
+            = "#{@r['user']['name']} (#{@r['user']['screen_name']})"
       p
         = @r['text']
       - if @r['entities']
         - if @r['entities']['hashtags'] != []
 
           - @r['entities']['hashtags'].each do |i|
-            a data-role="button" data-mini="true" data-inline="true" href="/tweet?q=#{i['text']}"
+            a data-role="button" data-mini="true" data-inline="true" href="/tweets?q=#{i['text']}&lat=#{@lat}&lng=#{@lng}"
               = "##{i['text']}"
         - if @r['entities']['urls'] != []
           - @r['entities']['urls'].each do |i|
