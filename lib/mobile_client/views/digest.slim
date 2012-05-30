@@ -11,7 +11,7 @@
           - if k
             - k = k.lstrip
             li data-role="list-divider" role="heading" data-theme="a"
-              a href='#{ @link_base.to_s + "&topic=list_#{k.tr(' ','-')}" }' data-role="btn" data-inset="true" 
+              a href='#{ @link_base.to_s + "&topic=list_#{k.tr(' ','-')}" }' data-role="btn" data-inset="true" data-transition="slide"
                 - topic_name = k.split(' ').map {|w| w.capitalize }.join(' ').en.plural
                 = topic_name
             / - v.each do |i|

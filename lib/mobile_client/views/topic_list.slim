@@ -6,7 +6,7 @@
       ul data-role="listview" id="list" data-filter="true"
         - @results.each do |i|
           li data-split-theme="d"
-            a href="/place?result_id=#{i['result_id']}&topic_ids=#{@topic_id}"
+            a href="/place?result_id=#{i['result_id']}&topic_ids=#{@topic_id}" data-transition="slide"
               h3 class="ul-li-heading" style="white-space:normal"
                 = i['title']
               p style="white-space:normal"

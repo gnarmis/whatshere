@@ -34,5 +34,5 @@
       ul data-role="listview" data-inset="true" data-split-theme="d"
         - @r.each do |i|
           li 
-            a href="/tw?id=#{i['id']}" style="white-space:normal"
+            a href="/tw?id=#{i['id']}" style="white-space:normal" data-transition="slide"
               = i['text']

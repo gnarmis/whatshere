@@ -6,5 +6,5 @@
       ul data-role="listview" data-split-theme="d" data-inset="true" data-filter="true"
         - @results.each do |i|
           li data-theme="c" style="white-space:normal"
-            a href="#{ @link_base.to_s + "&topic=#{i[0]}" }"
+            a data-transition="slide" href="#{ @link_base.to_s + "&topic=#{i[0]}" }"
               = i[1] + 's'
