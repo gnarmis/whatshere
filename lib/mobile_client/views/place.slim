@@ -32,6 +32,8 @@
       p
         a data-role="button" href="/similar-results?result_id=#{@result['result_id']}&topic_ids=#{@topic}&lat=#{@result['lat']}&lng=#{@result['lng']}"
           = "Similar Results"
+        a data-role="button" href="/tweets?q=%22#{url_enc(@result['title'].tr("'","%27").tr('"','%22'))}%22&lat=#{@result['lat']}&lng=#{@result['lng']}"
+          = "Tweets About #{@result['title']}"
         a data-role="button" href="/tweets?lat=#{@result['lat']}&lng=#{@result['lng']}"
           = "Tweets Near Here"
         a data-role="button" href="/people?lat=#{@result['lat']}&lng=#{@result['lng']}"

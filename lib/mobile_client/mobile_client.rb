@@ -166,7 +166,7 @@ module Project
     get '/tweets?' do
       if params[:lat] and params[:lng]
         q = base_url+"/tweetsnearme/?loc=#{params[:lat]},#{params[:lng]},0.1mi"
-        q = base_url+"/tweetsnearme/?q=#{params[:q]}&loc=#{params[:lat]},#{params[:lng]},0.2mi" if params[:q]
+        q = base_url+"/tweetsnearme/?q=#{params[:q]}&loc=#{params[:lat]},#{params[:lng]},10.0mi" if params[:q]
         res = Faraday.get q
         @results = []
         @r = JSON(res.body)
