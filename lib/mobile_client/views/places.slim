@@ -2,6 +2,7 @@
   div data-role="page" id="places" data-add-back-btn="true" data-theme="b"
     div data-role="header" data-theme="b"
       h1 Places
+      == slim :_home_button
     div data-role="content" data-theme="b"
       ul data-role="listview" data-split-theme="d" data-inset="true" data-filter="true"
         - @results.each do |i|

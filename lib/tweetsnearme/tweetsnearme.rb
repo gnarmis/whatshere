@@ -28,7 +28,7 @@ module Project
     get '/top_hashtags?' do
       if params[:loc]
         query = "https://search.twitter.com/search.json?q=%20&geocode=" + params[:loc] + "&rpp=100&include_entities=true"
-        query = "https://search.twitter.com/search.json?q=%20&geocode=" + params[:loc] + "&q=" + params[:q] + "&rpp=100&include_entities=true" if params[:q]
+        query = "https://search.twitter.com/search.json?q=" + params[:q] + "&geocode=" + params[:loc] + "&rpp=100&include_entities=true" if params[:q]
         res = Faraday.get query
         @results = JSON(res.body)
         @results = @results['results']

@@ -3,25 +3,30 @@
     div data-role="header" data-theme="b" data-position="fixed"
       h3
         = "What's Here?"
+      == slim :_home_button
     div data-role="content" data-theme="b" style="margin-top:0%;margin-bottom:5%;"
       / h3
       /   = "#{@num_topics} types of places nearby..."
-      ul data-role="listview" data-split-theme="d" data-inset="true" data-theme="a" data-filter="false" data-divider-theme="a"
+      div
         - @topics.each_pair do |k, v|
           - if k
             - k = k.lstrip
-            li data-role="list-divider" role="heading" data-theme="a"
-              a href='#{ @link_base.to_s + "&topic=list_#{k.tr(' ','-')}" }' data-role="btn" data-inset="true" data-transition="slide"
-                - topic_name = k.split(' ').map {|w| w.capitalize }.join(' ').en.plural
-                = topic_name
-            / - v.each do |i|
-            /   li data-filtertext="#{topic_name} #{i.split(',')[0]} #{i.split(',')[1]}" data-theme="a"
-            /     a href="/place?result_id=#{i.split(',')[2]}&topic_ids=list_#{k.tr(' ','-')}"
-            /       = i.split(',')[0]
-            / li
-            /   a href='#{ @link_base.to_s + "&topic=list_#{k.tr(' ','-')}" }' data-role="btn" data-inset="true" 
-            /     span style="width:50px;font-style:italic"
-            /       = "more..."
+            / li data-role="list-divider" role="heading" data-theme="a"
+            /   a href='#{ @link_base.to_s + "&topic=list_#{k.tr(' ','-')}" }' data-role="btn" data-inset="true" data-transition="slide"
+            /     - topic_name = k.split(' ').map {|w| w.capitalize }.join(' ').en.plural
+            /     = topic_name
+            div data-role="collapsible"
+              - topic_name = k.split(' ').map {|w| w.capitalize }.join(' ').en.plural
+              h3 = topic_name
+              ul data-role="listview" data-inset="true" data-split-theme="d" data-theme="a" data-filter="false" data-divider-theme="a" style="margin:0;"
+                - v.each do |i|
+                  li data-filtertext="#{topic_name} #{i.split(',')[0]} #{i.split(',')[1]}" data-theme="a"
+                    a href="/place?result_id=#{i.split(',')[2]}&topic_ids=list_#{k.tr(' ','-')}"
+                      = i.split(',')[0]
+                li
+                  a href='#{ @link_base.to_s + "&topic=list_#{k.tr(' ','-')}" }' data-role="btn" data-inset="true" 
+                    span style="width:50px;font-style:italic"
+                      = "more..."
     / div data-role="footer" data-theme="b" class="ui-grid-a" data-position="fixed"
     /   div class="ui-block-a"
     /     a data-role="button" href="/tweets?tw=#{@tw}&lat=#{@lat}&lng=#{@lng}" data-inline="false" data-mini="false" style="margin:5%;float:right;"

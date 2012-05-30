@@ -2,6 +2,7 @@
   div data-role="page" id="places" data-add-back-btn="true" data-theme="b"
     div data-role="header" data-theme="b" data-position="fixed"
       h1 Tweets
+      == slim :_home_button
     div data-role="content" data-theme="b"
       - if @hashtags
         div data-role="collapsible" data-collapsed="false"
@@ -12,7 +13,7 @@
               span style="color:#ccc; border:1px solid #ccc; border-radius: 25px; padding:0 3px 0 3px;"
                 = "#{v}"
       - if @mentions
-        div data-role="collapsible"
+        div data-role="collapsible" data-collapsed="false"
           h3 Top Mentions
           - @mentions.each do |k, v|
             a data-role="button" data-inline="true" data-mini="true" href="/person?tw=#{k}"
@@ -20,10 +21,10 @@
               span style="color:#ccc; border:1px solid #ccc; border-radius: 25px; padding:0 3px 0 3px;"
                 = "#{v}"
 
-      div data-role="collapsible"
+      div data-role="collapsible" data-collapsed="false"
         h3 All Tweets
         p
-        ul data-role="listview" data-split-theme="d" data-inset="true" data-filter="true"
+        ul data-role="listview" data-split-theme="d" data-inset="false" data-filter="true"
           - @results.each do |i|
             li
               a href="/tw?id=#{i['id']}&lat=#{@lat}&lng=#{@lng}" data-transition="slide"
@@ -32,6 +33,23 @@
                   = "#{i['from_user_name']} (#{i['from_user']})"
                 p style="white-space:normal"
                   = i['text']
+        - if @results.empty?
+          p
+          p
+          h3 style="text-align:center;"
+            span
+              = "no tweets found!"
+          a data-role="button" href="/tweets?lat=#{params['lat']}&lng=#{params['lng']}"
+            = "Other Tweets Nearby"
+        - if @results.length < 5 and !@results.empty?
+          p
+          p
+          h3 style="text-align:center;"
+            span
+              = "not many tweets found!"
+          a data-role="button" href="/tweets?lat=#{params['lat']}&lng=#{params['lng']}"
+            = "Other Tweets Nearby"
+
     - if params[:type] == "main"
       div data-role="navbar" class="ui-navbar ui-navbar-noicons" role="navigation" data-position="fixed"
         ul class="ui-grid-b"
