@@ -4,7 +4,7 @@
       h1 Tweets
       == slim :_home_button
     div data-role="content" data-theme="b"
-      - if @hashtags
+      - if @hashtags and !@hashtags.empty?
         div data-role="collapsible" data-collapsed="false"
           h3 Top Hashtags
           - @hashtags.each do |k, v|
@@ -12,7 +12,7 @@
               = "##{k}  "
               span style="color:#ccc; border:1px solid #ccc; border-radius: 25px; padding:0 3px 0 3px;"
                 = "#{v}"
-      - if @mentions
+      - if @mentions  and !@mentions.empty?
         div data-role="collapsible" data-collapsed="false"
           h3 Top Mentions
           - @mentions.each do |k, v|
