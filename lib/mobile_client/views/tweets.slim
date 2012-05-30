@@ -3,15 +3,35 @@
     div data-role="header" data-theme="b" data-position="fixed"
       h1 Tweets
     div data-role="content" data-theme="b"
-      ul data-role="listview" data-split-theme="d" data-inset="false" data-filter="true"
-        - @results.each do |i|
-          li
-            a href="/tw?id=#{i['id']}&lat=#{@lat}&lng=#{@lng}"
-              img src="#{i['profile_image_url']}" style="height:80px;"
-              p style="white-space:normal;font-weight:800;"
-                = "#{i['from_user_name']} (#{i['from_user']})"
-              p style="white-space:normal"
-                = i['text']
+      - if @hashtags
+        p
+          b Top Hashtags and Mentions
+        div
+          - @hashtags.each do |k, v|
+            a data-role="button" data-inline="true" data-mini="true" href="/tweets?q=%23#{k}&lat=#{params[:lat]}&lng=#{params[:lng]}"
+              = "##{k}  "
+              span style="color:#ccc; border:1px solid #ccc; border-radius: 25px; padding:0 3px 0 3px;"
+                = "#{v}"
+      - if @mentions
+        div
+          - @mentions.each do |k, v|
+            a data-role="button" data-inline="true" data-mini="true" href="/person?tw=#{k}"
+              = "@#{k}  "
+              span style="color:#ccc; border:1px solid #ccc; border-radius: 25px; padding:0 3px 0 3px;"
+                = "#{v}"
+      p
+      div data-role="collapsible"
+        h3 All Tweets
+        p
+        ul data-role="listview" data-split-theme="d" data-inset="true" data-filter="true"
+          - @results.each do |i|
+            li
+              a href="/tw?id=#{i['id']}&lat=#{@lat}&lng=#{@lng}"
+                img src="#{i['profile_image_url']}" style="height:80px;"
+                p style="white-space:normal;font-weight:800;"
+                  = "#{i['from_user_name']} (#{i['from_user']})"
+                p style="white-space:normal"
+                  = i['text']
     - if params[:type] == "main"
       div data-role="navbar" class="ui-navbar ui-navbar-noicons" role="navigation" data-position="fixed"
         ul class="ui-grid-b"

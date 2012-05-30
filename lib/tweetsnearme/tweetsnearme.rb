@@ -28,14 +28,28 @@ module Project
     get '/top_hashtags?' do
       if params[:loc]
         query = "https://search.twitter.com/search.json?q=%20&geocode=" + params[:loc] + "&rpp=100&include_entities=true"
+        query = "https://search.twitter.com/search.json?q=%20&geocode=" + params[:loc] + "&q=" + params[:q] + "&rpp=100&include_entities=true" if params[:q]
         res = Faraday.get query
         @results = JSON(res.body)
         @results = @results['results']
-        ary = []
+        @hashtags = {}
+        @mentions = {}
         @results.each do |i|
-          puts i['entities']
+          if i['entities']['hashtags'] != []
+            i['entities']['hashtags'].each do |h|
+              @hashtags[h['text']] ||= 0
+              @hashtags[h['text']] += 1
+            end
+          end
+          if i['entities']['user_mentions'] != []
+            i['entities']['user_mentions'].each do |u|
+              @mentions[u['screen_name']] ||= 0
+              @mentions[u['screen_name']] += 1
+            end
+          end
         end
-        ary
+        content_type :json
+        {:hashtags => @hashtags, :mentions => @mentions}.to_json
       end
     end
     

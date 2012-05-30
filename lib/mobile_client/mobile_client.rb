@@ -165,7 +165,7 @@ module Project
 
     get '/tweets?' do
       if params[:lat] and params[:lng]
-        q = base_url+"/tweetsnearme/?loc=#{params[:lat]},#{params[:lng]},0.1mi"
+        q = base_url+"/tweetsnearme/?loc=#{params[:lat]},#{params[:lng]},0.5mi"
         q = base_url+"/tweetsnearme/?q=#{params[:q]}&loc=#{params[:lat]},#{params[:lng]},10.0mi" if params[:q]
         res = Faraday.get q
         @results = []
@@ -175,6 +175,20 @@ module Project
         end
         @lat = params[:lat]
         @lng = params[:lng]
+
+        q2 = base_url+"/tweetsnearme/top_hashtags?loc=#{params[:lat]},#{params[:lng]},0.5mi"
+        q2 = base_url+"/tweetsnearme/top_hashtags?q=#{params[:q]}&loc=#{params[:lat]},#{params[:lng]},10.0mi" if params[:q]
+        res2 = Faraday.get q2
+        @results2 = JSON(res2.body)
+        @hashtags = @results2['hashtags']
+        @mentions = @results2['mentions']
+        if @hashtags
+          @hashtags = Hash[@hashtags.sort_by {|k, v| -v}[0..4]]
+        end
+        if @mentions
+          @mentions = Hash[@mentions.sort_by {|k, v| -v}[0..4]]
+        end
+        
         slim :tweets
       elsif params[:q] and !params[:lat] and !params[:lng]
         q = base_url+"/tweetsnearme/?q=" + params[:q]
