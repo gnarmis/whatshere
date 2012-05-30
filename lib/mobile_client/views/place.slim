@@ -28,7 +28,12 @@
              = @result['phone']
       - @result['urls'].each do |i|
         a href="#{i.to_s}" data-role="button" data-inline="true" data-mini="true" data-theme="a"
-          = i.split('/')[2].tr('www.','').gsub!('com','')
+          - r = Regexp.new "(?![http://])(.*)"
+          - a = i.to_s
+          - simplified_url = a.match(r).to_s.split('/')[0]
+          /- simplified_url = i.gsub('/(?![http://])(.*)(.*\/|\.[^.]*){1}/', '')
+          /= i.split('/')[2].tr('www.','').gsub!('com','')
+          = simplified_url.gsub('.com','').gsub('www.','').gsub('.co','')
       
       p
         a data-role="button" href="/similar-results?result_id=#{@result['result_id']}&topic_ids=#{@topic}&lat=#{@result['lat']}&lng=#{@result['lng']}"
