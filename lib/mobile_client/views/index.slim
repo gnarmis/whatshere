@@ -1,4 +1,17 @@
-- content_for :head do
+- content_for :body do
+  div data-role="page" id="home" data-theme="b"
+    div data-role="header" data-theme="b" data-position="fixed"
+      h1 
+        = "What's Here?"
+    div data-role="content" data-theme="b"
+      div style="width:100%; text-align:center;"
+        img src="/images/logo2.png" style="height:150px;"
+      div style="text-align:center; margin:10px;"
+        = "Local recommendations tailored for you!"
+      form id="twgeo" action="/digest" method="GET"
+        input type="text" name="tw_id" id="tw_id" placeholder="Enter Your Twitter Name"
+        input type="text" name="geo_lat" id="geo_lat" style="display:none;"
+        input type="text" name="geo_lon" id="geo_lon" style="display:none;"
   javascript:
     $(document).ready(function() {
       //alert('shit gets loaded');
@@ -48,18 +61,4 @@
         }
       });
     });
-- content_for :body do
-  div data-role="page" id="home" data-theme="b"
-    div data-role="header" data-theme="b" data-position="fixed"
-      h1 
-        = "What's Here?"
-    div data-role="content" data-theme="b"
-      div style="width:100%; text-align:center;"
-        img src="/images/logo.png" style="height:100px; border-radius:20px; box-shadow: 0px 3px 5px #333;"
-      div style="text-align:center; margin:10px;"
-        = "Local recommendations tailored for you!"
-      form id="twgeo" action="/digest" method="GET"
-        input type="text" name="tw_id" id="tw_id" placeholder="Enter Your Twitter Name"
-        input type="text" name="geo_lat" id="geo_lat" style="display:none;"
-        input type="text" name="geo_lon" id="geo_lon" style="display:none;"
 

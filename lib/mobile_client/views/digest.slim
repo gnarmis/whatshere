@@ -1,5 +1,5 @@
 - content_for :body do
-  div data-role="page" id="all" data-add-back-btn="true"
+  div data-role="page" id="all" data-add-back-btn="true" data-theme="b"
     div data-role="header" data-theme="b" data-position="fixed"
       h3
         = "What's Here?"
@@ -20,9 +20,9 @@
               h3
                 - topic_name = "Things To Do" if topic_name == "Things To Does" 
                 = topic_name
-              ul data-role="listview" data-inset="true" data-split-theme="d" data-theme="a" data-filter="false" data-divider-theme="a" style="margin:0;"
+              ul data-role="listview" data-inset="true" data-split-theme="d" data-theme="b" data-filter="false" data-divider-theme="a" style="margin:0;"
                 - v.each do |i|
-                  li data-filtertext="#{topic_name} #{i.split(',')[0]} #{i.split(',')[1]}" data-theme="a"
+                  li data-filtertext="#{topic_name} #{i.split(',')[0]} #{i.split(',')[1]}" data-theme="b"
                     a href="/place?result_id=#{i.split(',')[2]}&topic_ids=list_#{k.tr(' ','-')}" data-transition="slide"
                       = i.split(',')[0]
                 li
@@ -39,7 +39,7 @@
     div data-role="navbar" class="ui-navbar ui-navbar-noicons" role="navigation" data-position="fixed"
       ul class="ui-grid-b"
         li class="ui-block-a"
-          a href="#{request.url}" class="ui-btn-active ui-state-persist ui-btn ui-btn-down-a ui-btn-up-a" data-theme="a"
+          a href="#{request.url}" class="ui-btn-active ui-state-persist ui-btn ui-btn-down-a ui-btn-up-a" data-theme="b"
             = "Places"
         li class="ui-block-b"
           a href="/tweets?tw=#{@tw}&lat=#{@lat}&lng=#{@lng}&type=main" data-theme="a" class="ui-btn ui-btn-up-a"

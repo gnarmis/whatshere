@@ -5,13 +5,13 @@
       == slim :_home_button
     div data-role="content" data-theme="b"
       h1 style="background:url('#{@result['image_urls'][0].to_s}'); background-size: 100%; text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;border-radius:5px;padding:10% 10% 3% 10%; width: 150%;margin-left:-1em;margin-top:-5%;box-shadow: 0px 1px 20px black inset;border-bottom:1px solid #444;"
-        span style="white-space:normal;width:75%;display:block;"
+        span style="white-space:normal;width:75%;display:block; color: white;"
           = @result['title']
         - if @result['price']
-          span style="font-size:14px;margin-left:1%; font-style:italic;margin-top:none;padding:none;"
+          span style="font-size:14px;margin-left:1%; font-style:italic;margin-top:none;padding:none;color: white;"
             = "price: #{@result['price']} &nbsp; &nbsp; yelp:"
           - if @result['average_ratings']['yelp']
-            span style="white-space:normal; font-size:14px; margin-left:1%; margin-top:10%; display:inline; line-height:5px;"
+            span style="white-space:normal; font-size:14px; margin-left:1%; margin-top:10%; display:inline; line-height:5px;color: white;"
               - (Integer(@result['average_ratings']['yelp'].to_f)).times do
                 = "<h2 style='display:inline;clear:none;margin-bottom:0px;'>★</h2>"
 

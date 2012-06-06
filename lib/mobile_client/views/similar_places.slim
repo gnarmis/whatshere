@@ -3,7 +3,7 @@
     div data-role="header" data-theme="b"
       h1 Places
     div data-role="content" data-theme="b"
-      ul data-role="listview" data-split-theme="d" data-inset="true" data-filter="true"
+      ul data-role="listview" data-split-theme="d" data-inset="true" data-filter="false"
         - @results.each do |i|
           li data-theme="c" style="white-space:normal"
             a href="/place?result_id=#{i['result_id']}&topic_ids=#{i['topic_ids'][0]}"

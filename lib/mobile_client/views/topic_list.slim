@@ -4,7 +4,7 @@
       h1 = "#{@topic_id.split('_')[-1].tr('-',' ').split(' ').map {|w| w.capitalize }.join(' ').en.plural}"
       == slim :_home_button
     div data-role="content" data-theme="b"
-      ul data-role="listview" id="list" data-filter="true"
+      ul data-role="listview" id="list" data-filter="false"
         - @results.each do |i|
           li data-split-theme="d"
             a href="/place?result_id=#{i['result_id']}&topic_ids=#{@topic_id}" data-transition="slide"

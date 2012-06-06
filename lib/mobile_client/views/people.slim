@@ -4,7 +4,7 @@
       h1 People
       == slim :_home_button
     div data-role="content" data-theme="b"
-      ul data-role="listview" data-split-theme="d" data-inset="false" data-inline="true" data-filter="true"
+      ul data-role="listview" data-split-theme="d" data-inset="false" data-inline="true" data-filter="false"
         - @results.each do |i|
           li data-theme="a" style="white-space:normal"
             a href="/person?tw=#{i[0]}&lat=#{params[:lat]}&lng=#{params[:lng]}" data-transition="slide"

@@ -24,7 +24,7 @@
       div data-role="collapsible" data-collapsed="false"
         h3 All Tweets
         p
-        ul data-role="listview" data-split-theme="d" data-inset="false" data-filter="true"
+        ul data-role="listview" data-split-theme="d" data-inset="false" data-filter="false"
           - @results.each do |i|
             li
               a href="/tw?id=#{i['id']}&lat=#{@lat}&lng=#{@lng}" data-transition="slide"
@@ -54,11 +54,11 @@
       div data-role="navbar" class="ui-navbar ui-navbar-noicons" role="navigation" data-position="fixed"
         ul class="ui-grid-b"
           li class="ui-block-a"
-            a href="/digest?tw_id=#{params[:tw]}&geo_lat=#{params[:lat]}&geo_lon=#{params[:lng]}" data-theme="a"
+            a href="/digest?tw_id=#{params[:tw]}&geo_lat=#{params[:lat]}&geo_lon=#{params[:lng]}" data-theme="b"
               = "Places"
           li class="ui-block-b"
-            a href="#{request.url}" class="ui-btn-active ui-state-persist ui-btn ui-btn-down-a ui-btn-up-a" data-theme="a" class="ui-btn ui-btn-up-a"
+            a href="#{request.url}" class="ui-btn-active ui-state-persist ui-btn ui-btn-down-a ui-btn-up-a" data-theme="b" class="ui-btn ui-btn-up-a"
               = "Tweets"
           li class="ui-block-c"
-            a href="/people?tw=#{params[:tw]}&lat=#{params[:lat]}&lng=#{params[:lng]}&type=main" data-theme="a" class="ui-btn ui-btn-up-a"
+            a href="/people?tw=#{params[:tw]}&lat=#{params[:lat]}&lng=#{params[:lng]}&type=main" data-theme="b" class="ui-btn ui-btn-up-a"
               = "People"
