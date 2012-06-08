@@ -25,11 +25,6 @@ module Project
       @tw = params[:tw_id]
       @lat = lat
       @lng = lon
-      # names = ""
-      # @results.each do |i|
-      #   names += '<li data-split-theme="d"><h3>' + i['name'] + "</h3> <p>" + i['street'] + "</p></li>"
-      # end
-      # @names = names
       slim :all
     end
 
